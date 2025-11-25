@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>محول العملات السريع ⚡</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* -------------------------- */
+        /* تصميم CSS لجعله احترافياً ومرتباً */
+        /* -------------------------- */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f7f6; /* خلفية فاتحة هادئة */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            direction: rtl; /* دعم اللغة العربية */
+        }
+        .converter-box {
+            background-color: #ffffff;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 500px;
+            text-align: center;
+        }
+        .title {
+            color: #1a237e; /* أزرق داكن احترافي */
+            margin-bottom: 30px;
+            font-size: 2em;
+            font-weight: bold;
+        }
+        .input-group {
+            margin-bottom: 25px;
+            text-align: right;
+        }
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 600;
+        }
+        #amount {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            box-sizing: border-box;
+            font-size: 1.2em;
+            text-align: right;
+        }
+        .selection-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        .currency-panel {
+            flex: 1;
+            padding: 0 10px;
+        }
+        .currency-panel label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 600;
+            text-align: right;
+        }
+        select {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #4caf50; /* لون مميز لـ Select */
+            border-radius: 10px;
+            box-sizing: border-box;
+            font-size: 1.1em;
+            appearance: none; /* إخفاء الشكل الافتراضي للمتصفح */
+            background: #e8f5e9 url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12"><path fill="%234caf50" d="M6 9l-4-4 1.5-1.5L6 6l2.5-2.5L10 5z"/></svg>') no-repeat right 15px center;
+            background-size: 12px;
+            cursor: pointer;
+        }
+        #switch-btn {
+            background: #1a237e;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            cursor: pointer;
+            font-size: 1.5em;
+            transition: background 0.3s, transform 0.3s;
+            flex-shrink: 0;
+            margin: 0 10px;
+        }
+        #switch-btn:hover {
+            background: #3949ab;
+            transform: rotate(180deg);
+        }
+        #convert-btn {
+            width: 100%;
+            padding: 15px;
+            background-color: #4caf50; /* أخضر بارز */
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.4em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.1s;
+            margin-top: 15px;
+        }
+        #convert-btn:hover {
+            background-color: #388e3c;
+        }
+        .result-area {
+            margin-top: 40px;
+            padding: 20px;
+            border: 2px dashed #1a237e;
+            border-radius: 10px;
+            background-color: #e3f2fd;
+            text-align: right;
+        }
+        .result-area p {
+            margin: 0 0 10px 0;
+            font-size: 1.1em;
+            color: #1a237e;
+            font-weight: 600;
+        }
+        #result-output {
+            display: block;
+            font-size: 2.5em;
+            color: #d84315; /* لون قوي للنتيجة */
+            font-weight: bold;
+        }
+        /* أيقونات داخل الـ select */
+        .currency-icon {
+            margin-left: 8px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="converter-box">
+        <h2 class="title">محول العملات السريع ⚡</h2>
+
+        <div class="input-group">
+            <label for="amount">المبلغ الذي تريد تحويله</label>
+            <input type="number" id="amount" placeholder="9">
+        </div>
+
+        <div class="selection-container">
+            <div class="currency-panel">
+                <label>من (العملة المصدر)</label>
+                <select id="from-currency">
+                    <option value="master"><i class="fas fa-credit-card currency-icon"></i> ماستر</option>
+                    <option value="asia"><i class="fas fa-mobile-alt currency-icon"></i> آسيا</option>
+                    <option value="usdt"><i class="fab fa-btc currency-icon"></i> USDT</option>
+                </select>
+            </div>
+
+            <button id="switch-btn" title="تبديل العملات">🔄</button>
+
+            <div class="currency-panel">
+                <label>إلى (العملة الهدف)</label>
+                <select id="to-currency">
+                    <option value="asia"><i class="fas fa-mobile-alt currency-icon"></i> آسيا</option>
+                    <option value="master"><i class="fas fa-credit-card currency-icon"></i> ماستر</option>
+                    <option value="usdt"><i class="fab fa-btc currency-icon"></i> USDT</option>
+                </select>
+            </div>
+        </div>
+
+        <button id="convert-btn">حول الآن</button>
+
+        <div class="result-area">
+            <p>النتيجة النهائية:</p>
+            <span id="result-output">اضغط على "حول الآن" لعرض النتيجة</span>
+        </div>
+    </div>
+
+    <script>
+        // --------------------------
+        // جافا سكريبت لمنطق التحويل
+        // --------------------------
+
+        // تعريف معاملات التحويل المطلوبة
+        const rates = {
+            'master_to_asia': 1.111,
+            'asia_to_master': 0.9,
+            'usdt_to_master': 1.4,
+            'usdt_to_asia': 1.6,
+            'asia_to_usdt': 0.625,
+            'master_to_usdt': 0.714
+        };
+
+        // دالة التحويل الرئيسية
+        function convertCurrency() {
+            const amountInput = document.getElementById('amount');
+            const fromCurrency = document.getElementById('from-currency').value;
+            const toCurrency = document.getElementById('to-currency').value;
+            const resultOutput = document.getElementById('result-output');
+
+            const amount = parseFloat(amountInput.value);
+
+            // التحقق من صلاحية المدخلات
+            if (isNaN(amount) || amount <= 0) {
+                resultOutput.innerHTML = 'الرجاء إدخال مبلغ صحيح.';
+                return;
+            }
+
+            // التحقق إذا كانت العملتان متطابقتين
+            if (fromCurrency === toCurrency) {
+                resultOutput.innerHTML = `${amount.toFixed(3)} ${getCurrencyName(fromCurrency)}`;
+                return;
+            }
+
+            // بناء المفتاح للبحث في جدول rates
+            const key = `${fromCurrency}_to_${toCurrency}`;
+            const rate = rates[key];
+            
+            let result;
+
+            if (rate) {
+                // تنفيذ عملية الضرب (المعامل)
+                result = amount * rate;
+                // عرض العملية الحسابية كمثال للمستخدم 
+                const calculationExample = `${amount} × ${rate} = ${result.toFixed(3)}`;
+                
+                resultOutput.innerHTML = `
+                    ${result.toFixed(3)} ${getCurrencyName(toCurrency)} 
+                    <br><small style="font-size: 0.4em; display: block; margin-top: 5px; color: #666;">
+                        (حسب العملية: ${calculationExample})
+                    </small>
+                `;
+
+            } else {
+                resultOutput.innerHTML = 'معامل التحويل غير معرف لهذه العملية.';
+            }
+        }
+
+        // دالة للحصول على الاسم الصحيح للعملة للعرض
+        function getCurrencyName(code) {
+            const names = {
+                'master': 'ماستر',
+                'asia': 'آسيا',
+                'usdt': 'USDT'
+            };
+            return names[code] || code;
+        }
+        
+        // دالة تبديل العملات
+        function switchCurrencies() {
+            const fromSelect = document.getElementById('from-currency');
+            const toSelect = document.getElementById('to-currency');
+            const tempValue = fromSelect.value;
+            fromSelect.value = toSelect.value;
+            toSelect.value = tempValue;
+            convertCurrency(); // إعادة التحويل بعد التبديل
+        }
+
+        // ربط الدوال بالأزرار والقوائم
+        document.getElementById('convert-btn').addEventListener('click', convertCurrency);
+        document.getElementById('amount').addEventListener('input', convertCurrency);
+        document.getElementById('from-currency').addEventListener('change', convertCurrency);
+        document.getElementById('to-currency').addEventListener('change', convertCurrency);
+        document.getElementById('switch-btn').addEventListener('click', switchCurrencies);
+
+        // تشغيل التحويل عند تحميل الصفحة لأول مرة 
+        document.addEventListener('DOMContentLoaded', () => {
+             // إعطاء قيمة افتراضية لكي لا يكون الحقل فارغاً
+            document.getElementById('amount').value = 9; 
+            convertCurrency();
+        });
+
+    </script>
+</body>
+</html>
